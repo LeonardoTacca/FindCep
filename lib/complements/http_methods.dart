@@ -1,16 +1,20 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class HttpRequestMethods {
-  static Future<dynamic> get(String url) async {
+  final http.Client httpClient;
+
+  HttpRequestMethods(this.httpClient);
+
+  Future<String> get(String url) async {
     try {
-      http.Response response = await http.get(Uri.parse(url), headers: {"Content-type": "application/json"});
+      http.Response response = await httpClient.get(Uri.parse(url), headers: {"Content-type": "application/json"});
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        return response.body;
+      } else {
+        throw Exception('Error Ocurrs');
       }
     } catch (e) {
-      Exception('Ocorreu um erro');
+      throw Exception('Ocorreu um erro');
     }
   }
 }
