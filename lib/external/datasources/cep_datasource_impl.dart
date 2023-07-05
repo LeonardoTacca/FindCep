@@ -12,7 +12,7 @@ class CepDataSourceImpl implements CepDatasource {
   CepDataSourceImpl(this.httpRequestMethods);
   @override
   Future<Either<Exception, Cep>> getCepInfoFromRequest(String cepNumber) async {
-    var result = await httpRequestMethods.get(Enviroment.urlBase + cepNumber);
+    var result = await httpRequestMethods.get('${Enviroment.urlBase}$cepNumber/json/');
     return result.fold((left) {
       return Left(left);
     }, (right) {

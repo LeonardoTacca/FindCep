@@ -53,9 +53,9 @@ class CepModel extends Cep {
   factory CepModel.fromMapApi(Map<String, dynamic> map) {
     return CepModel(
       cep: map['cep'] as String,
-      street: map['logradouro'] != null ? map['logradouro'] as String : null,
-      complement: map['complemento'] != null ? map['complemento'] as String : null,
-      neighborhood: map['bairro'] != null ? map['bairro'] as String : null,
+      street: map['logradouro'] != null && map['logradouro'] != '' ? map['logradouro'] as String : null,
+      complement: map['complemento'] != null && map['complemento'] != '' ? map['complemento'] as String : null,
+      neighborhood: map['bairro'] != null && map['bairro'] != '' ? map['bairro'] as String : null,
       city: map['localidade'],
       uf: map['uf'] as String,
       ibge: int.parse(map['ibge']),
