@@ -1,5 +1,6 @@
+import '../../complements/either.dart';
 import '../../domain/entities/cep.dart';
 
 abstract interface class CepDatasource {
-  Future<Cep> getCepInfoFromRequest(String cepNumber);
+  Future<Either<Exception, Cep>> getCepInfoFromRequest(String cepNumber);
 }

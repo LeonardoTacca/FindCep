@@ -50,22 +50,22 @@ class CepModel extends Cep {
     };
   }
 
-  factory CepModel.fromMap(Map<String, dynamic> map) {
+  factory CepModel.fromMapApi(Map<String, dynamic> map) {
     return CepModel(
       cep: map['cep'] as String,
       street: map['logradouro'] != null ? map['logradouro'] as String : null,
       complement: map['complemento'] != null ? map['complemento'] as String : null,
       neighborhood: map['bairro'] != null ? map['bairro'] as String : null,
-      city: map['city'] as String,
+      city: map['localidade'],
       uf: map['uf'] as String,
-      ibge: map['ibge'] as int,
-      ddd: map['ddd'] as int,
+      ibge: int.parse(map['ibge']),
+      ddd: int.parse(map['ddd']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CepModel.fromJson(String source) => CepModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CepModel.fromJson(String source) => CepModel.fromMapApi(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

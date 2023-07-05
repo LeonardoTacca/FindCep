@@ -1,20 +1,17 @@
+import 'package:find_cep_app/complements/either.dart';
 import 'package:http/http.dart' as http;
 
 class HttpRequestMethods {
-  final http.Client httpClient;
-
-  HttpRequestMethods(this.httpClient);
-
-  Future<String> get(String url) async {
-    try {
-      http.Response response = await httpClient.get(Uri.parse(url), headers: {"Content-type": "application/json"});
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        throw Exception('Error Ocurrs');
-      }
-    } catch (e) {
-      throw Exception('Ocorreu um erro');
+  Future<Either<Exception, String>> get(String url) async {
+    if (url.isEmpty) {
+      return Left(Exception('URL vazia'));
+    }
+    http.Response response = await http.get(Uri.parse(url), headers: {"Content-type": "application/json"});
+    switch (response.statusCode) {
+      case 200:
+        return Right(response.body);
+      default:
+        return Left(Exception('Ocorreu um erro ao realizar a requisição'));
     }
   }
 }
